@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% block title %}首页{% endblock %}
+{% block body_class %}home-page{% endblock %}
+{% block content %}
+<!-- 顶部欢迎区 -->
+<section class="home-hero">
+    <div class="hero-inner">
+        <div class="hero-brand">
+            <h1 class="hero-title">票夹博物馆</h1>
+            <p class="hero-subtitle">珍藏每一张票根，记录每一次出发</p>
+        </div>
+        <div class="hero-search">
+            <div class="hero-search-capsule" role="search" aria-label="首页快速查找">
+                <select id="homeSearchType" class="capsule-select" aria-label="按类别查找">
+                    {% for t in types %}
+                    <option value="{{ t }}">{{ t }}</option>
+                    {% endfor %}
+                </select>
+                <input id="homeSearchKeyword" class="capsule-input" type="text" placeholder="搜索关键词、地点或日期..." />
+                <button type="button" id="homeSearchBtn" class="capsule-btn btn btn-primary">搜索</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 统计概览 -->
+<section class="home-stats" id="homeMiniStats">
+    <div class="stat-card stat-card--total">
+        <span class="stat-icon">🎫</span>
+        <div class="stat-info">
+            <span class="stat-num" id="statTotal">0</span>
+            <span class="stat-label">总票据</span>
+        </div>
+    </div>
+    <div class="stat-card stat-card--year">
+        <span class="stat-icon">📅</span>
+        <div class="stat-info">
+            <span class="stat-num" id="statYear">0</span>
+            <span class="stat-label">本年新增</span>
+        </div>
+    </div>
+    <div class="stat-card stat-card--cities">
+        <span class="stat-icon">🏙️</span>
+        <div class="stat-info">
+            <span class="stat-num" id="statCities">0</span>
+            <span class="stat-label">足迹城市</span>
+        </div>
+    </div>
+    <div class="stat-card stat-card--latest">
+        <span class="stat-icon">🕐</span>
+        <div class="stat-info">
+            <span class="stat-num" id="statLatest">--</span>
+            <span class="stat-label">最近更新</span>
+        </div>
+    </div>
+</section>
+
+<!-- 快捷导航 -->
+<section class="quick-nav">
+    <div class="nav-section-header">
+        <span class="section-tag">快捷入口</span>
+    </div>
+    <div class="nav-grid nav-grid--main">
+        <a href="/upload" class="nav-card nav-card--primary nav-card--upload">
+            <div class="nav-card-inner">
+                <span class="nav-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="nav-card-text">
+                    <span class="nav-card-title">上传票根</span>
+                    <span class="nav-card-desc">添加新的票据</span>
+                </span>
+            </div>
+            <span class="nav-card-arrow">→</span>
+        </a>
+        <a href="/list" class="nav-card">
+            <div class="nav-card-inner">
+                <span class="nav-card-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 6h16M4 10h16M4 14h10M4 18h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="nav-card-text">
+                    <span class="nav-card-title">全部票据</span>
+                    <span class="nav-card-desc">分类浏览</span>
+                </span>
+            </div>
+        </a>
+        <a href="/timeline" class="nav-card">
+            <div class="nav-card-inner">
+                <span class="nav-card-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+                    </svg>
+                </span>
+                <span class="nav-card-text">
+                    <span class="nav-card-title">时间轴</span>
+                    <span class="nav-card-desc">按时间回顾</span>
+                </span>
+            </div>
+        </a>
+        <a href="/map" class="nav-card">
+            <div class="nav-card-inner">
+                <span class="nav-card-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 4L3 7v14l6-3 6 3 6-3V3L9 4Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                        <path d="M9 4v14M15 4v14M9 11h6" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span class="nav-card-text">
+                    <span class="nav-card-title">足迹地图</span>
+                    <span class="nav-card-desc">走过的城市</span>
+                </span>
+            </div>
+        </a>
+        <a href="/stats" class="nav-card">
+            <div class="nav-card-inner">
+                <span class="nav-card-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 20V10M12 20V4M6 20v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="nav-card-text">
+                    <span class="nav-card-title">年度统计</span>
+                    <span class="nav-card-desc">收藏报告</span>
+                </span>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- 分类浏览 -->
+<section class="quick-nav">
+    <div class="nav-section-header">
+        <span class="section-tag">分类浏览</span>
+    </div>
+    <div class="nav-grid nav-grid--type">
+        <a href="/list?type=车票" class="nav-card nav-card--train">
+            <span class="nav-card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect x="4" y="5" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M8 17h2M14 17h2M8 21h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+            </span>
+            <span class="nav-card-text">
+                <span class="nav-card-title">车票</span>
+                <span class="nav-card-desc">火车 · 大巴</span>
+            </span>
+        </a>
+        <a href="/list?type=演出票" class="nav-card nav-card--show">
+            <span class="nav-card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.3L12 15.5 7.1 18l.9-5.3-4-3.9 5.5-.8L12 3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="nav-card-text">
+                <span class="nav-card-title">演出票</span>
+                <span class="nav-card-desc">演唱会 · 戏剧</span>
+            </span>
+        </a>
+        <a href="/list?type=景区票" class="nav-card nav-card--scenic">
+            <span class="nav-card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 20l7-12 4 7 2-3 5 8H3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                    <path d="M10 8l1-2 1 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </span>
+            <span class="nav-card-text">
+                <span class="nav-card-title">景区票</span>
+                <span class="nav-card-desc">景点 · 乐园</span>
+            </span>
+        </a>
+        <a href="/list?type=证书" class="nav-card nav-card--cert">
+            <span class="nav-card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 15l-2 5 10-12h-5l2-5-10 12h5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="nav-card-text">
+                <span class="nav-card-title">证书</span>
+                <span class="nav-card-desc">奖杯 · 荣誉</span>
+            </span>
+        </a>
+        <a href="/list?type=其他" class="nav-card nav-card--other">
+            <span class="nav-card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+            </span>
+            <span class="nav-card-text">
+                <span class="nav-card-title">其他</span>
+                <span class="nav-card-desc">更多类型</span>
+            </span>
+        </a>
+    </div>
+</section>
+{% endblock %}
+
+{% block footer_top %}{% endblock %}
+{% block scripts %}
+<script src="/static/js/home.js"></script>
+{% endblock %}

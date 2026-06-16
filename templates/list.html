@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}我的票夹{% endblock %}
+{% block content %}
+<section class="page-head">
+    <h1>我的票夹</h1>
+    <p>按分类筛选或搜索关键词</p>
+</section>
+<div class="list-toolbar">
+    <div class="filter-btns" id="filterBtns">
+        <button type="button" class="filter-btn active" data-type="全部">全部</button>
+        <button type="button" class="filter-btn" data-type="车票">车票</button>
+        <button type="button" class="filter-btn" data-type="演出票">演出票</button>
+        <button type="button" class="filter-btn" data-type="景区票">景区票</button>
+        <button type="button" class="filter-btn" data-type="证书">证书</button>
+        <button type="button" class="filter-btn" data-type="其他">其他</button>
+    </div>
+    <div class="search-wrap">
+        <input type="text" id="searchInput" class="search-input" placeholder="搜索类型、平台、地点、备注…">
+        <button type="button" id="searchBtn" class="btn btn-search">搜索</button>
+    </div>
+</div>
+<div class="card-grid" id="cardGrid">
+    <div class="loading" id="listLoading">加载中…</div>
+    <div class="empty-state" id="emptyState" style="display:none;">
+        <p>暂无票据，<a href="/upload">去上传</a></p>
+    </div>
+</div>
+<div id="toast" class="toast"></div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/list.js"></script>
+{% endblock %}

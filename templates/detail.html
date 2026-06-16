@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}票据详情{% endblock %}
+{% block content %}
+<section class="detail-wrap" id="detailWrap">
+    <div class="loading" id="detailLoading">加载中…</div>
+    <div class="detail-content" id="detailContent" style="display:none;" data-theme="">
+        <div class="detail-image-wrap">
+            <img id="detailImage" src="" alt="票据图片" class="detail-image">
+            <p id="detailNoImage" class="no-image" style="display:none;">暂无图片</p>
+        </div>
+        <div class="detail-info">
+            <h1 class="detail-title">票据详情</h1>
+            <dl class="detail-meta">
+                <dt>类型</dt><dd id="detailType"></dd>
+                <dt>来源平台</dt><dd id="detailPlatform"></dd>
+                <dt>时间</dt><dd id="detailTime"></dd>
+                <dt>地点</dt><dd id="detailPlace"></dd>
+                <dt>备注</dt><dd id="detailNotes" class="notes"></dd>
+                <dt>OCR 识别全文</dt><dd id="detailOcr" class="notes ocr-fulltext"></dd>
+                <dt>主题色（规则库）</dt><dd id="detailTheme"></dd>
+            </dl>
+            <div class="detail-actions">
+                <a href="#" id="editLink" class="btn btn-primary">编辑</a>
+                <button type="button" id="deleteBtn" class="btn btn-danger">删除</button>
+                <a href="/list" class="btn btn-ghost">返回列表</a>
+            </div>
+        </div>
+    </div>
+    <div class="detail-error" id="detailError" style="display:none;">
+        <p>票据不存在或已删除</p>
+        <a href="/list" class="btn btn-primary">返回列表</a>
+    </div>
+</section>
+<!-- 编辑弹层 -->
+<div class="modal" id="editModal" style="display:none;">
+    <div class="modal-content">
+        <h2>编辑票据</h2>
+        <form id="editForm" enctype="multipart/form-data">
+            <input type="hidden" id="editId" name="id">
+            <div class="form-row">
+                <label>票据类型 <span class="required">*</span></label>
+                <input type="text" list="typeOptionsEdit" id="editType" name="type" required>
+                <datalist id="typeOptionsEdit">
+                    {% for t in types %}
+                    {% if t != '全部' %}
+                    <option value="{{ t }}"></option>
+                    {% endif %}
+                    {% endfor %}
+                </datalist>
+            </div>
+            <div class="form-row">
+                <label>来源平台</label>
+                <input type="text" id="editPlatform" name="platform">
+            </div>
+            <div class="form-row">
+                <label>时间 <span class="required">*</span></label>
+                <input type="date" id="editTime" name="time" required>
+            </div>
+            <div class="form-row">
+                <label>地点</label>
+                <input type="text" id="editPlace" name="place">
+            </div>
+            <div class="form-row form-row--inline">
+                <div class="form-row-half">
+                    <label>省份</label>
+                    <input type="text" id="editProvince" name="province">
+                </div>
+                <div class="form-row-half">
+                    <label>城市</label>
+                    <input type="text" id="editCity" name="city">
+                </div>
+            </div>
+            <div class="form-row">
+                <label>备注</label>
+                <textarea id="editNotes" name="notes" rows="3"></textarea>
+            </div>
+            <div class="form-row">
+                <label>OCR 识别全文（可编辑）</label>
+                <textarea id="editOcrText" name="ocr_text" rows="5"></textarea>
+            </div>
+            <div class="form-row">
+                <label>主题色（十六进制，可留空）</label>
+                <input type="text" id="editThemeColor" name="theme_color" placeholder="#808080">
+            </div>
+            <div class="form-row">
+                <label>更换图片（不选则保留原图）</label>
+                <input type="file" id="editImage" name="image" accept="image/*">
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">保存</button>
+                <button type="button" id="editModalClose" class="btn btn-ghost">取消</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="toast" class="toast"></div>
+{% endblock %}
+{% block scripts %}
+<script>
+    window.TICKET_ID = {{ ticket_id }};
+</script>
+<script src="/static/js/detail.js"></script>
+{% endblock %}

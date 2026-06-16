@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}时间轴日记{% endblock %}
+{% block content %}
+<section class="page-head">
+    <h1>时间轴日记</h1>
+    <p>按时间从旧到新回顾您的票据与证书</p>
+</section>
+<div class="tl2-app" id="tl2App">
+    <div class="loading" id="timelineLoading">加载中…</div>
+    <div class="empty-state" id="timelineEmpty" style="display:none;">
+        <p>暂无票据，<a href="/upload">去上传</a></p>
+    </div>
+
+    <aside class="tl2-sidebar" id="tl2Sidebar" style="display:none;">
+        <div class="tl2-controls">
+            <div class="tl2-control">
+                <label for="tl2MonthFilter">月份筛选</label>
+                <select id="tl2MonthFilter">
+                    <option value="">全部月份</option>
+                </select>
+            </div>
+            <div class="tl2-control">
+                <label for="tl2SearchInput">搜索票根</label>
+                <input id="tl2SearchInput" type="text" placeholder="关键词：地点 / 类型 / 备注 / OCR">
+            </div>
+        </div>
+        <div class="tl2-year-list" id="tl2YearList"></div>
+    </aside>
+
+    <section class="tl2-viewer" id="tl2Viewer" style="display:none;">
+        <div class="tl2-viewer-empty" id="tl2ViewerEmpty">请选择左侧时间轴上的票根</div>
+        <div class="tl2-viewer-card" id="tl2ViewerCard" style="display:none;">
+            <div class="tl2-main-image-wrap">
+                <img id="tl2MainImage" class="tl2-main-image" src="" alt="票根图片">
+            </div>
+            <div class="tl2-info">
+                <h3 id="tl2InfoTitle" class="tl2-info-title"></h3>
+                <p id="tl2InfoMeta" class="tl2-info-meta"></p>
+                <p id="tl2InfoNotes" class="tl2-info-notes"></p>
+            </div>
+            <div class="tl2-thumbs-wrap">
+                <div class="tl2-thumbs-title">同月份票根</div>
+                <div class="tl2-thumbs" id="tl2Thumbs"></div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="toast" class="toast"></div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/timeline.js"></script>
+{% endblock %}

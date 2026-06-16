@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}年度统计{% endblock %}
+{% block body_class %}stats-page{% endblock %}
+{% block content %}
+<section class="page-head">
+    <h1>年度统计</h1>
+    <p>回顾你的票据收藏之旅</p>
+</section>
+
+<div class="stats-overview">
+    <div class="stat-card stat-card--primary">
+        <div class="stat-card-icon">🎫</div>
+        <div class="stat-card-info">
+            <span class="stat-card-num" id="totalTickets">0</span>
+            <span class="stat-card-label">总票据数</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-card-icon">🏙️</div>
+        <div class="stat-card-info">
+            <span class="stat-card-num" id="totalCities">0</span>
+            <span class="stat-card-label">去过城市</span>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-card-icon">📅</div>
+        <div class="stat-card-info">
+            <span class="stat-card-num" id="totalYears">0</span>
+            <span class="stat-card-label">涵盖年份</span>
+        </div>
+    </div>
+</div>
+
+<div class="stats-grid">
+    <section class="stats-section stats-section--yearly">
+        <h2 class="section-title">
+            <span class="section-icon">📈</span>
+            年度趋势
+        </h2>
+        <div class="yearly-chart" id="yearlyChart">
+            <div class="chart-bars" id="chartBars"></div>
+            <div class="chart-x-axis" id="chartXAxis"></div>
+        </div>
+    </section>
+
+    <section class="stats-section stats-section--monthly">
+        <h2 class="section-title">
+            <span class="section-icon">📅</span>
+            <span id="currentYearTitle">今年</span>每月分布
+        </h2>
+        <div class="monthly-chart" id="monthlyChart">
+            <div class="month-grid" id="monthGrid"></div>
+        </div>
+    </section>
+
+    <section class="stats-section stats-section--types">
+        <h2 class="section-title">
+            <span class="section-icon">🎭</span>
+            票据类型分布
+        </h2>
+        <div class="type-list" id="typeList">
+            <div class="loading">加载中...</div>
+        </div>
+    </section>
+
+    <section class="stats-section stats-section--places">
+        <h2 class="section-title">
+            <span class="section-icon">📍</span>
+            常去地点 Top 10
+        </h2>
+        <div class="place-list" id="placeList">
+            <div class="loading">加载中...</div>
+        </div>
+    </section>
+</div>
+
+<div id="toast" class="toast"></div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/stats.js"></script>
+{% endblock %}

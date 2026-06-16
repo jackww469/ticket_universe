@@ -1,0 +1,56 @@
+{
+  "default": {
+    "theme_color": "#808080",
+    "label": "通用票根"
+  },
+  "rules": [
+    {
+      "keywords": ["红楼梦", "国家大剧院"],
+      "theme_color": "#C41E3A",
+      "label": "红楼·演出红",
+      "type": "演出票"
+    },
+    {
+      "keywords": ["周杰伦", "嘉年华", "演唱会"],
+      "theme_color": "#7B61FF",
+      "label": "演唱会·紫",
+      "type": "演出票"
+    },
+    {
+      "keywords": ["青岛", "栈桥"],
+      "theme_color": "#1E90FF",
+      "label": "海滨·蓝",
+      "type": "车票"
+    },
+    {
+      "keywords": ["北京", "天安门"],
+      "theme_color": "#FFA500",
+      "label": "京城·橙",
+      "type": "车票"
+    },
+    {
+      "keywords": ["颐和园", "故宫", "长城"],
+      "theme_color": "#228B22",
+      "label": "景区·绿",
+      "type": "景区票"
+    },
+    {
+      "keywords": ["12306", "中国铁路"],
+      "theme_color": "#2F4F4F",
+      "label": "铁路·深灰",
+      "type": "车票"
+    },
+    {
+      "keywords": ["大麦", "猫眼", "秀动"],
+      "theme_color": "#E91E63",
+      "label": "票务平台·粉",
+      "type": "演出票"
+    },
+    {
+      "keywords": ["奖状", "荣誉证书", "资格证"],
+      "theme_color": "#C9A227",
+      "label": "证书·金",
+      "type": "证书"
+    }
+  ]
+}

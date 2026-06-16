@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}票夹博物馆{% endblock %} | 票夹博物馆</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    <header class="site-header">
+        <a href="{{ url_for('index') if session.get('user_id') else url_for('login') }}" class="logo">票夹博物馆</a>
+        <nav class="main-nav">
+            {% if session.get('user_id') %}
+            <a href="{{ url_for('index') }}">首页</a>
+            <a href="{{ url_for('upload_page') }}">上传票根</a>
+            <a href="{{ url_for('list_page') }}">我的票夹</a>
+            <a href="{{ url_for('timeline_page') }}">时间轴日记</a>
+            <a href="{{ url_for('map_page') }}">足迹地图</a>
+            <a href="{{ url_for('stats_page') }}">年度统计</a>
+            <span class="nav-user">{{ session.get('username', '用户') }}</span>
+            <a href="{{ url_for('logout') }}">退出</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">登录</a>
+            <a href="{{ url_for('register') }}">注册</a>
+            {% endif %}
+        </nav>
+    </header>
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer">
+        {% block footer_top %}{% endblock %}
+        <div class="footer-divider" aria-hidden="true">
+            <span class="footer-divider-line"></span>
+            <span class="footer-badge">Ticket Museum · Since 2026</span>
+            <span class="footer-divider-line"></span>
+        </div>
+        <p>电子票夹博物馆 — 为消失的纸质票留下数字记忆</p>
+    </footer>
+    <script src="/static/js/common.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

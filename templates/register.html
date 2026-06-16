@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}注册{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+{% block content %}
+<div class="auth-layout auth-layout--split">
+    <aside class="auth-hero" aria-label="品牌介绍">
+        <div class="auth-hero__glow" aria-hidden="true"></div>
+        <div class="auth-hero__art" aria-hidden="true">
+            <svg class="auth-hero__svg" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" role="img">
+                <title>票根与展陈</title>
+                <ellipse cx="160" cy="182" rx="128" ry="10" fill="rgba(139,69,19,0.09)"/>
+                <rect x="36" y="28" width="248" height="14" rx="2" fill="none" stroke="rgba(139,69,19,0.35)" stroke-width="1.2"/>
+                <rect x="48" y="52" width="224" height="118" rx="10" fill="#fdfcfa" stroke="#a0522d" stroke-width="2"/>
+                <line x1="160" y1="52" x2="160" y2="170" stroke="#e8e0d8" stroke-width="1.5" stroke-dasharray="5 5"/>
+                <circle cx="160" cy="112" r="28" fill="none" stroke="#c9a227" stroke-width="2"/>
+                <path d="M152 118 L160 108 L168 118 M156 114 L164 114" fill="none" stroke="#8b4513" stroke-width="2" stroke-linecap="round"/>
+                <rect x="68" y="68" width="72" height="6" rx="2" fill="rgba(201,162,39,0.2)"/>
+                <rect x="68" y="80" width="52" height="5" rx="1" fill="rgba(44,42,38,0.1)"/>
+                <rect x="188" y="68" width="64" height="6" rx="2" fill="rgba(139,69,19,0.12)"/>
+                <rect x="188" y="80" width="48" height="5" rx="1" fill="rgba(44,42,38,0.08)"/>
+            </svg>
+        </div>
+        <h2 class="auth-hero__title">票夹博物馆</h2>
+        <p class="auth-hero__lead">创建账户，票据与图片仅保存在你的名下</p>
+        <p class="auth-hero__tagline">开启你的私人票夹博物馆</p>
+    </aside>
+    <div class="auth-panel">
+        <div class="auth-layout__blob" aria-hidden="true"></div>
+        <div class="auth-page-wrap">
+            <section class="auth-card">
+                <h1 class="auth-title">注册</h1>
+                <p class="auth-sub">每个账户拥有独立的票据与图片存储</p>
+                {% if error %}
+                <p class="auth-error">{{ error }}</p>
+                {% endif %}
+                <form method="post" class="auth-form" action="{{ url_for('register') }}">
+                    <div class="form-row">
+                        <label for="username">用户名</label>
+                        <input type="text" id="username" name="username" required autocomplete="username" minlength="2" maxlength="32" placeholder="2–32 个字符">
+                    </div>
+                    <div class="form-row">
+                        <label for="password">密码</label>
+                        <input type="password" id="password" name="password" required autocomplete="new-password" minlength="6" placeholder="至少 6 位">
+                    </div>
+                    <div class="form-row">
+                        <label for="confirm">确认密码</label>
+                        <input type="password" id="confirm" name="confirm" required autocomplete="new-password" minlength="6">
+                    </div>
+                    <div class="form-actions auth-actions">
+                        <button type="submit" class="btn btn-primary">注册并登录</button>
+                        <a href="{{ url_for('login') }}" class="btn btn-ghost">已有账号？去登录</a>
+                    </div>
+                </form>
+            </section>
+        </div>
+        <p class="auth-footnote">本地存储 · 每位用户拥有独立的票据与图片数据</p>
+    </div>
+</div>
+{% endblock %}

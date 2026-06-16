@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}上传票根{% endblock %}
+{% block content %}
+<div class="upload-page-wrap">
+<section class="page-head page-head-center">
+    <h1>上传新票根 / 证书</h1>
+    <p>填写信息并上传图片，保存您的票据记忆</p>
+</section>
+<form id="uploadForm" class="upload-form" enctype="multipart/form-data">
+    <div class="form-row">
+        <label for="type">票据类型 <span class="required">*</span></label>
+        <input type="text" list="typeOptions" id="type" name="type" required
+               placeholder="如：车票、演出票、景区票、证书、自定义类型">
+        <datalist id="typeOptions">
+            {% for t in types %}
+            {% if t != '全部' %}
+            <option value="{{ t }}"></option>
+            {% endif %}
+            {% endfor %}
+        </datalist>
+    </div>
+    <div class="form-row">
+        <label for="platform">来源平台</label>
+        <input type="text" id="platform" name="platform" placeholder="如：12306、大麦、猫眼">
+    </div>
+    <div class="form-row">
+        <label for="time">时间 <span class="required">*</span></label>
+        <input type="date" id="time" name="time" required>
+    </div>
+    <div class="form-row">
+        <label for="place">地点</label>
+        <input type="text" id="place" name="place" placeholder="如：国家大剧院、北京南站">
+    </div>
+    <div class="form-row form-row--inline">
+        <div class="form-row-half">
+            <label for="province">省份</label>
+            <input type="text" id="province" name="province" placeholder="如：北京、上海">
+        </div>
+        <div class="form-row-half">
+            <label for="city">城市</label>
+            <input type="text" id="city" name="city" placeholder="如：北京、深圳">
+        </div>
+    </div>
+    <div class="form-row">
+        <label for="notes">备注</label>
+        <textarea id="notes" name="notes" rows="4" placeholder="票据背景、证书用途等"></textarea>
+    </div>
+    <div class="form-row">
+        <label>图片 <span class="required">*</span></label>
+        <div class="upload-area" id="uploadArea">
+            <input type="file" id="image" name="image" accept="image/*" hidden>
+            <div class="upload-placeholder" id="uploadPlaceholder">
+                <span class="upload-icon">📷</span>
+                <span>点击或拖拽上传（≤5MB）</span>
+            </div>
+            <div class="upload-preview" id="uploadPreview" style="display:none;">
+                <img id="previewImg" src="" alt="预览">
+                <button type="button" class="preview-remove" id="previewRemove">移除</button>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="theme_color" id="theme_color" value="">
+    <div class="ocr-result-section" id="ocrResultSection">
+        <h3 class="ocr-section-title">识别结果</h3>
+        <p class="ocr-section-desc">自动识别后，结构化信息会填入上方字段；全文单独保存在下方，可随时校对，<strong>不会</strong>自动写入「备注」。</p>
+        <div class="ticket-theme-preview" id="themePreview" style="--preview-accent:#808080;">
+            <span class="theme-swatch" id="themeSwatch" aria-hidden="true"></span>
+            <div class="theme-preview-text">
+                <strong id="themePreviewLabel">主题：通用票根</strong>
+                <span class="theme-preview-hint" id="themePreviewHint">点击「自动识别」后根据关键词匹配主题色</span>
+            </div>
+        </div>
+        <div class="form-row">
+            <label for="ocr_text">OCR 识别全文（可编辑）</label>
+            <textarea id="ocr_text" name="ocr_text" rows="8" placeholder="识别完成后，全文将显示在此处；可手动增删改。"></textarea>
+        </div>
+    </div>
+    <div class="form-actions">
+        <button type="button" id="ocrBtn" class="btn btn-ghost">自动识别</button>
+        <button type="submit" class="btn btn-primary">提交上传</button>
+        <a href="/list" class="btn btn-ghost">返回列表</a>
+    </div>
+</form>
+</div>
+<div id="toast" class="toast"></div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/upload.js"></script>
+{% endblock %}
